@@ -1,0 +1,121 @@
+:root {
+  --bg-body: #0f172a;
+  --bg-card: #1e293b;
+  --bg-input: #0f172a; /* Input içini biraz daha koyu yaparak derinlik verdik */
+  --accent: #8b5cf6;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Sayfayı yatayda ortalar */
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px; /* Genişliği biraz daraltarak odak noktasını artırdık */
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+/* Card - İçindeki her şeyi dikeyde düzgün hizalar */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Elemanlar arası standart boşluk */
+}
+
+/* Profil Alanı - Hizalama burada çok kritik */
+.profile-head {
+  display: flex;
+  align-items: center; /* Avatar ve metni dikeyde ortalar */
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  flex-shrink: 0; /* Resmin ezilmesini engeller */
+  object-fit: cover;
+  border: 2px solid var(--accent);
+}
+
+/* Form Hizalaması */
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem; /* Yazı ile input arası boşluk */
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+input, textarea {
+  width: 100%; /* Dışarı taşmayı engeller */
+  box-sizing: border-box; /* Padding'i genişliğe dahil eder */
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  color: white;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+/* Butonun sola mı sağa mı yaslanacağını seçebilirsin */
+button {
+  width: fit-content; /* İçeriği kadar yer kaplar */
+  min-width: 140px;
+  align-self: flex-start; /* Sola yaslar, 'center' yaparsan ortalar */
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Not Listesi Öğeleri */
+.note-item {
+  list-style: none;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.note-image {
+  width: 100%;
+  max-width: 100%; /* Taşıyıcıyı asla geçmez */
+  height: auto;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+}

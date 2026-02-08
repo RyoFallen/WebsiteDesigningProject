@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+  <main class="container">
+    <h1>📝 Notes Profile</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <section class="flash-stack">
+          {% for category, message in messages %}
+            <p class="flash {{ category }}">{{ message }}</p>
+          {% endfor %}
+        </section>
+      {% endif %}
+    {% endwith %}
+
+    <section class="card profile">
+      <h2>Your Profile</h2>
+      <div class="profile-head">
+        {% if profile['image_path'] %}
+          <img src="{{ url_for('static', filename=profile['image_path']) }}" alt="Profile image" class="avatar" />
+        {% else %}
+          <div class="avatar placeholder">No image</div>
+        {% endif %}
+        <div>
+          <h3>{{ profile['username'] }}</h3>
+          <p>{{ profile['bio'] }}</p>
+        </div>
+      </div>
+      <form action="{{ url_for('update_profile') }}" method="post" enctype="multipart/form-data" class="form-grid">
+        <label>
+          Name
+          <input type="text" name="username" value="{{ profile['username'] }}" required />
+        </label>
+        <label>
+          Bio
+          <textarea name="bio" rows="3">{{ profile['bio'] }}</textarea>
+        </label>
+        <label>
+          Profile image
+          <input type="file" name="profile_image" accept="image/*" />
+        </label>
+        <button type="submit">Save Profile</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Create a Note</h2>
+      <form action="{{ url_for('create_note') }}" method="post" enctype="multipart/form-data" class="form-grid">
+        <label>
+          Title
+          <input type="text" name="title" required />
+        </label>
+        <label>
+          Note
+          <textarea name="body" rows="4" required></textarea>
+        </label>
+        <label>
+          Note image (optional)
+          <input type="file" name="note_image" accept="image/*" />
+        </label>
+        <button type="submit">Add Note</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Saved Notes</h2>
+      {% if notes %}
+        <ul class="notes-list">
+          {% for note in notes %}
+            <li class="note-item">
+              <h3>{{ note['title'] }}</h3>
+              <p>{{ note['body'] }}</p>
+              {% if note['image_path'] %}
+                <img src="{{ url_for('static', filename=note['image_path']) }}" alt="Image for {{ note['title'] }}" class="note-image" />
+              {% endif %}
+              <small>{{ note['created_at'] }}</small>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No notes yet. Add your first one above.</p>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>
