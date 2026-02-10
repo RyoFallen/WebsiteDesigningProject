@@ -1,0 +1,116 @@
+:root {
+  color-scheme: light;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px; 
+}
+
+* { 
+  box-sizing: border-box; /* Giriş kutularının taşmasını engeller */
+}
+
+body { 
+  margin: 0; 
+  background-image: url('DefaultBG.png'); /* Resim yolunu kontrol et */
+  background-size: cover;       
+  background-position: center;  
+  background-attachment: fixed; 
+  background-repeat: no-repeat;
+  color: #1c1e21; 
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ARKA PLAN SOLUKLAŞTIRMA */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); 
+  z-index: -1;
+}
+
+/* --- LOGIN FORMU KOMPAKT DÜZENİ --- */
+.auth-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-card { 
+  max-width: 380px; /* Kutuyu daralttık */
+  width: 90%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.auth-card h1 {
+  text-align: center;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.8rem;
+  color: #050505;
+}
+
+/* --- KUTULARI KOMPAKT YAPMA --- */
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Elemanlar arası boşluğu azalttık */
+}
+
+.form-grid label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+input[type="text"], 
+input[type="password"] { 
+  width: 100%; 
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px; /* Daha az yuvarlak */
+  padding: 10px 12px; /* İnceltildi */
+  font-size: 0.95rem; 
+  margin-top: 4px;
+}
+
+/* Buton */
+button[type="submit"] { 
+  width: 100%;
+  background: #1877f2; 
+  color: #fff; 
+  border: none; 
+  padding: 10px; /* İnceltildi */
+  border-radius: 10px; 
+  font-weight: 700; 
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:hover { 
+  background: #166fe5; 
+}
+
+/* Kayıt ol / Giriş yap linki */
+.auth-switch {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+  color: #65676b;
+}
+
+.auth-switch a {
+  color: #1877f2;
+  text-decoration: none;
+  font-weight: 600;
+}
