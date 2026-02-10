@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | Notes Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+  <main class="container auth-container">
+    <section class="card auth-card">
+      <h1>Register</h1> {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <section class="flash-stack">
+            {% for category, message in messages %}
+              <p class="flash {{ category }}">{{ message }}</p>
+            {% endfor %}
+          </section>
+        {% endif %}
+      {% endwith %}
+
+      <form action="{{ url_for('register') }}" method="post" class="form-grid">
+        <label>
+          Username
+          <input type="text" name="username" required />
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" minlength="6" required />
+        </label>
+        <button type="submit">Register</button> </form>
+
+      <p class="auth-switch">Already have an account? <a href="{{ url_for('login') }}">Log In</a></p>
+    </section>
+  </main>
+</body>
+</html>

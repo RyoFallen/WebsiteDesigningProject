@@ -1,138 +1,194 @@
 :root {
-  --bg-body: #fce7f3;        
-  --bg-card: #ffffff;        
-  --bg-input: #f9fafb;       
-  --accent: #18181b;         
-  --text-main: #09090b;      
-  --text-muted: #71717a;     
-  --border: #e4e4e7;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  color: var(--text-main);
+  color-scheme: light;
   font-family: 'Inter', system-ui, sans-serif;
-  display: flex;
-  justify-content: center; 
+  font-size: 18px; 
+}
+
+* { 
+  box-sizing: border-box; /* Taşmaları önleyen temel kural */
+}
+
+body { 
+  margin: 0; 
+  background-image: url('DefaultBG.png'); 
+  background-size: cover;       
+  background-position: center;  
+  background-attachment: fixed; 
+  background-repeat: no-repeat;
+  color: #1c1e21; 
+  line-height: 1.6;
+  position: relative;
   min-height: 100vh;
-
-  /* --- DALGA DESENLİ ARKA PLAN AYARI --- */
-  /* 1. Katman: %85 şeffaflıkta pastel pembe (deseni yumuşatmak için) */
-  /* 2. Katman: Dalga fotoğrafı */
-  background: linear-gradient(rgba(252, 231, 243, 0.85), rgba(252, 231, 243, 0.85)),
-              url('/Users/sahranaztok/Desktop/AIChatBot/WebsiteDesigningProject/static/css/Gemini_Generated_Image_8ko3ku8ko3ku8ko3.png'); 
-  background-size: cover;
-  background-attachment: fixed; /* Sayfa kaysa da dalgalar sabit kalır, şık durur */
-  background-position: center;
 }
 
-.container {
-  width: 100%;
-  max-width: 600px;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+/* ARKA PLAN SOLUKLAŞTIRMA (OVERLAY) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); 
+  z-index: -1;
 }
 
-/* Kart Yapısı */
-.card {
-  background: var(--bg-card);
-  border-radius: 24px;
-  padding: 32px;
-  /* Dalga deseninin üzerinde kartın daha net seçilmesi için gölgeyi biraz artırdık */
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-  box-sizing: border-box;
-  /* Kartın arkasından dalgaların çok hafif sızmasını istersen alttaki satırı açabilirsin: */
-  /* backdrop-filter: blur(10px); */
+.container { 
+  max-width: 1300px; 
+  margin: 0 auto; 
+  padding: 3rem 1.5rem; 
 }
 
-.profile-head {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-}
-
-.avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  object-fit: cover; 
-  flex-shrink: 0;
-  border: 2px solid #fbcfe8;
-}
-
-/* Not Listesi Öğesi Düzeni */
-.note-item {
-  list-style: none;
-  background: #ffffff;
-  border: 1px solid var(--border);
+/* ÜST PANEL */
+.page-head { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 2.5rem; 
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(15px);
   border-radius: 20px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
-.note-item p {
+/* DASHBOARD DÜZENİ */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+@media (max-width: 950px) { 
+  .dashboard-grid { grid-template-columns: 1fr; } 
+}
+
+/* KUTUCUKLAR (CAM EFEKTİ VE YUMUŞAK KÖŞELER) */
+.card, .note-card { 
+  background: rgba(255, 255, 255, 0.6) !important; 
+  backdrop-filter: blur(12px) saturate(180%);
+  border-radius: 28px; 
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  padding: 2rem; 
+  margin-bottom: 2rem;
   width: 100%;
-  margin: 0;
-  text-align: left;
-  line-height: 1.5;
+  transition: transform 0.3s ease;
 }
 
-/* --- ORTA YOL FOTOĞRAF ÖLÇEĞİ --- */
-.note-image {
-  width: 88%;            
-  max-width: 500px;      
-  height: auto;          
-  max-height: 400px;     
-  object-fit: contain;   
-  border-radius: 14px;
-  margin: 4px auto;      
-  display: block;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+.note-card:hover {
+  transform: translateY(-5px);
 }
 
-/* Buton ve Inputlar */
-input, textarea {
+/* PROFİL RESMİ (AVATAR) */
+.avatar { 
+  width: 130px; 
+  height: 130px; 
+  border-radius: 50%; /* Tam yuvarlak */
+  object-fit: cover; 
+  margin: 0 auto 1.5rem; 
+  display: block; 
+  border: 5px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* NOT BAŞLIKLARI (DAHA KALIN VE OKUNUR) */
+.note-header h3 { 
+  margin: 0; 
+  font-size: 1.6rem;    /* Başlığı büyüttük */
+  font-weight: 850;     /* Ekstra kalın yaptık */
+  color: #050505;       /* Daha koyu ve belirgin */
+  letter-spacing: -0.5px; 
+}
+
+/* FORM ELEMANLARI */
+.card form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+input[type="text"], 
+textarea,
+input[type="password"] { 
+  width: 100%; 
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 15px; 
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+input[type="file"] {
   width: 100%;
-  box-sizing: border-box;
-  background: var(--bg-input);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 16px;
-}
-
-input:focus, textarea:focus {
-  outline: none;
-  border-color: #f472b6;
-  background: #fff;
-}
-
-button {
-  width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  font-weight: 600;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(24, 119, 242, 0.2);
+  border-radius: 15px;
   cursor: pointer;
-  transition: transform 0.1s, opacity 0.2s;
 }
 
-button:active {
-  transform: scale(0.98);
+/* NOT İÇERİK DÜZENİ */
+.note-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  padding-bottom: 1rem; 
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-button:hover {
-  opacity: 0.95;
+.note-content {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.note-img-large {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 22px; /* Köşeleri yumuşak resim */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+/* BUTONLAR */
+button { 
+  width: 100%;
+  background: #1877f2; 
+  color: #fff; 
+  border: none; 
+  padding: 1rem; 
+  border-radius: 15px; 
+  font-weight: 700; 
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover { 
+  background: #166fe5; 
+  box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3);
+}
+
+.delete-icon-btn { 
+  background: none; 
+  border: none; 
+  cursor: pointer; 
+  font-size: 1.5rem; 
+  color: #ff4757;
+  opacity: 0.7;
+}
+
+.delete-icon-btn:hover { opacity: 1; transform: scale(1.2); }
+
+.note-footer { 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem; 
+  color: #65676b; 
+  padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.05);
 }

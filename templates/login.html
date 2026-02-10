@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if register_mode %}Register{% else %}Login{% endif %} | Notes Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+  <main class="container auth-container">
+    <section class="card auth-card">
+      <h1>{% if register_mode %}Register{% else %}Login{% endif %}</h1>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <section class="flash-stack">
+            {% for category, message in messages %}
+              <p class="flash {{ category }}">{{ message }}</p>
+            {% endfor %}
+          </section>
+        {% endif %}
+      {% endwith %}
+
+      <form action="{% if register_mode %}{{ url_for('register') }}{% else %}{{ url_for('login') }}{% endif %}" method="post" class="form-grid">
+        <label>
+          Username
+          <input type="text" name="username" required />
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" minlength="6" required />
+        </label>
+        <button type="submit">{% if register_mode %}Register Now{% else %}Log In{% endif %}</button>
+      </form>
+
+      <p class="auth-switch">
+        {% if register_mode %}
+          Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+        {% else %}
+          No account? <a href="{{ url_for('register') }}">Register here</a>
+        {% endif %}
+      </p>
+    </section>
+  </main>
+</body>
+</html>
