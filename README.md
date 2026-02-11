@@ -7,6 +7,8 @@ A Flask web app where each user can:
 - Save a personal profile (name, bio, profile image)
 - Create notes with optional images
 - Continue from where they left off after logging back in (data is stored per user in SQLite)
+- Edit notes that are already existing within their profile
+- Delete existing notes in profile
 
 ## Quick start
 
@@ -17,7 +19,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Open `http://127.0.0.1:5000`.
+Open `http://127.0.0.1:5001`.
 
 ## Routes
 
