@@ -85,7 +85,7 @@ input[type="password"] {
 /* Buton */
 button[type="submit"] { 
   width: 100%;
-  background: #1877f2; 
+  background: #ff4d6d; 
   color: #fff; 
   border: none; 
   padding: 10px; /* İnceltildi */
@@ -98,7 +98,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover { 
-  background: #166fe5; 
+  background: #ff4d6d; 
 }
 
 /* Kayıt ol / Giriş yap linki */
@@ -110,7 +110,7 @@ button[type="submit"]:hover {
 }
 
 .auth-switch a {
-  color: #1877f2;
+  color: #ff4d6d;
   text-decoration: none;
   font-weight: 600;
 }
