@@ -1,17 +1,93 @@
+/* ================================
+   CSS VARIABLES & DESIGN TOKENS
+   ================================ */
 :root {
   color-scheme: light;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 18px;
-
-  /* ANA RENK PALETİ */
+  
+  /* Typography */
+  --font-family: 'Inter', system-ui, sans-serif;
+  --font-size-base: 18px;
+  --font-size-sm: 0.9rem;
+  --font-size-lg: 1.6rem;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+  --line-height-base: 1.6;
+  --letter-spacing-tight: -0.3px;
+  
+  /* Colors */
   --primary: #ff4fa3;
   --primary-hover: #e84393;
   --text-dark: #2b2b2b;
   --text-soft: #6b6b6b;
+  --delete-color: #ff4d6d;
+  
+  /* Backgrounds */
+  --bg-glass: rgba(255, 255, 255, 0.6);
+  --bg-glass-light: rgba(255, 255, 255, 0.7);
+  --bg-glass-lighter: rgba(255, 255, 255, 0.45);
+  --bg-glass-lightest: rgba(255, 255, 255, 0.5);
+  --bg-overlay: rgba(255, 240, 246, 0.75);
+  
+  /* Borders */
+  --border-glass: rgba(255, 255, 255, 0.7);
+  --border-glass-medium: rgba(255, 255, 255, 0.6);
+  --border-input: rgba(255, 79, 163, 0.15);
+  --border-input-hover: rgba(255, 79, 163, 0.25);
+  --border-subtle: rgba(0, 0, 0, 0.05);
+  
+  /* Border Radius */
+  --radius-sm: 15px;
+  --radius-md: 20px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+  --radius-full: 50%;
+  
+  /* Shadows */
+  --shadow-sm: 0 6px 18px rgba(255, 79, 163, 0.18);
+  --shadow-md: 0 8px 32px rgba(255, 79, 163, 0.08);
+  --shadow-lg: 0 10px 40px rgba(255, 79, 163, 0.08);
+  --shadow-hover: 0 14px 45px rgba(255, 79, 163, 0.15);
+  --shadow-btn: 0 8px 20px rgba(255, 79, 163, 0.35);
+  --shadow-avatar: 0 8px 20px rgba(255, 79, 163, 0.15);
+  
+  /* Blur Effects */
+  --blur-sm: blur(14px);
+  --blur-md: blur(15px);
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 2.5rem;
+  --spacing-2xl: 3rem;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.3s ease;
+  
+  /* Specific Sizes */
+  --avatar-size: 130px;
+  --avatar-border: 5px;
+  --note-img-size: 180px;
+  --input-padding: 1rem;
+  --gap-form: 12px;
+  --gap-content: 2rem;
+  --gap-footer: 8px;
 }
 
+/* ================================
+   RESET & BASE STYLES
+   ================================ */
 * {
   box-sizing: border-box;
+}
+
+:root {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
 }
 
 body {
@@ -22,111 +98,158 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: var(--text-dark);
-  line-height: 1.6;
+  line-height: var(--line-height-base);
   position: relative;
   min-height: 100vh;
 }
 
-/* PEMBEYE UYUMLU AÇIK OVERLAY */
+/* Pink-tinted overlay for glassmorphism effect */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(255, 240, 246, 0.75);
+  background: var(--bg-overlay);
   z-index: -1;
 }
 
+/* ================================
+   LAYOUT - Container
+   ================================ */
 .container {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 3rem 1.5rem;
+  padding: var(--spacing-2xl) var(--spacing-md);
 }
 
-/* ÜST PANEL */
+/* ================================
+   LAYOUT - Page Header
+   ================================ */
 .page-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2.5rem;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(15px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px rgba(255, 79, 163, 0.08);
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--bg-glass-lighter);
+  backdrop-filter: var(--blur-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-glass-medium);
+  box-shadow: var(--shadow-md);
 }
 
-/* DASHBOARD GRID */
+/* ================================
+   LAYOUT - Dashboard Grid
+   ================================ */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 350px 1fr;
-  gap: 2.5rem;
+  gap: var(--spacing-xl);
   align-items: start;
 }
 
-@media (max-width: 950px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* CAM KARTLAR */
+/* ================================
+   COMPONENTS - Glass Card
+   ================================ */
 .card,
 .note-card {
-  background: rgba(255, 255, 255, 0.6) !important;
-  backdrop-filter: blur(14px) saturate(180%);
-  border-radius: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 10px 40px rgba(255, 79, 163, 0.08);
-  padding: 2rem;
-  margin-bottom: 2rem;
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur-sm) saturate(180%);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
   width: 100%;
-  transition: 0.3s ease;
+  transition: transform var(--transition-slow), 
+              box-shadow var(--transition-slow);
 }
 
 .note-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 14px 45px rgba(255, 79, 163, 0.15);
+  box-shadow: var(--shadow-hover);
 }
 
-/* AVATAR */
+/* ================================
+   COMPONENTS - Avatar
+   ================================ */
 .avatar {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: var(--radius-full);
   object-fit: cover;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto var(--spacing-md);
   display: block;
-  border: 5px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 20px rgba(255, 79, 163, 0.15);
+  border: var(--avatar-border) solid rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-avatar);
 }
 
-/* NOT BAŞLIĞI */
+/* ================================
+   COMPONENTS - Note Structure
+   ================================ */
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
 .note-header h3 {
   margin: 0;
-  font-size: 1.6rem;
-  font-weight: 800;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-black);
   color: #1f1f1f;
-  letter-spacing: -0.3px;
+  letter-spacing: var(--letter-spacing-tight);
 }
 
-/* FORM */
+.note-content {
+  display: flex;
+  gap: var(--gap-content);
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.note-img-large {
+  width: var(--note-img-size);
+  height: var(--note-img-size);
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.note-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-footer);
+  font-size: var(--font-size-sm);
+  color: var(--text-soft);
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ================================
+   COMPONENTS - Forms
+   ================================ */
 .card form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--gap-form);
 }
 
 input[type="text"],
 textarea,
 input[type="password"] {
   width: 100%;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 79, 163, 0.15);
-  border-radius: 15px;
-  padding: 1rem;
+  background: var(--bg-glass-light);
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-sm);
+  padding: var(--input-padding);
   font-size: 1rem;
-  transition: 0.2s;
+  font-family: inherit;
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
 }
 
 input:focus,
@@ -139,80 +262,182 @@ textarea:focus {
 input[type="file"] {
   width: 100%;
   padding: 0.8rem;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 79, 163, 0.25);
-  border-radius: 15px;
+  background: var(--bg-glass-lightest);
+  border: 1px solid var(--border-input-hover);
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  font-family: inherit;
 }
 
-/* NOT İÇERİĞİ */
-.note-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 1rem;
-  margin-bottom: 1.2rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.note-content {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-}
-
-.note-img-large {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 22px;
-  box-shadow: 0 6px 18px rgba(255, 79, 163, 0.18);
-  flex-shrink: 0;
-}
-
-/* BUTONLAR – TAM PEMBE TEMA */
+/* ================================
+   COMPONENTS - Buttons
+   ================================ */
 button {
-  width: 100%;
   background: var(--primary);
   color: #fff;
   border: none;
-  padding: 1rem;
-  border-radius: 15px;
-  font-weight: 700;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-bold);
+  font-family: inherit;
   cursor: pointer;
-  transition: 0.25s;
+  transition: background-color var(--transition-normal),
+              transform var(--transition-normal),
+              box-shadow var(--transition-normal);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Full width buttons in forms */
+.card form button,
+form button {
+  width: 100%;
 }
 
 button:hover {
   background: var(--primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(255, 79, 163, 0.35);
+  box-shadow: var(--shadow-btn);
 }
 
-/* SİLME BUTONU */
+button:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Delete Icon Button */
 .delete-icon-btn {
+  width: auto;
+  min-width: 44px;
+  min-height: 44px;
   background: none;
   border: none;
   cursor: pointer;
+  padding: var(--spacing-xs);
   font-size: 1.5rem;
-  color: #ff4d6d;
+  color: var(--delete-color);
   opacity: 0.7;
-  transition: 0.2s;
+  transition: opacity var(--transition-fast),
+              transform var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .delete-icon-btn:hover {
   opacity: 1;
+  background: none;
   transform: scale(1.2);
+  box-shadow: none;
 }
 
-/* ALT BİLGİ */
-.note-footer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: var(--text-soft);
-  padding-top: 10px;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+.delete-icon-btn:focus-visible {
+  outline: 2px solid var(--delete-color);
+  outline-offset: 2px;
 }
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+/* Tablet and below */
+@media (max-width: 950px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile landscape and below */
+@media (max-width: 768px) {
+  :root {
+    font-size: 16px;
+  }
+  
+  .container {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+  
+  .page-head {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    text-align: center;
+  }
+  
+  .note-content {
+    flex-direction: column;
+  }
+  
+  .note-img-large {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+  }
+  
+  .card,
+  .note-card {
+    padding: var(--spacing-md);
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  :root {
+    font-size: 15px;
+  }
+  
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .note-header h3 {
+    font-size: 1.4rem;
+  }
+  
+  .card form {
+    gap: 16px;
+  }
+  
+  input[type="text"],
+  textarea,
+  input[type="password"] {
+    padding: 1.2rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  button {
+    padding: 1.2rem;
+  }
+}
+
+/* ================================
+   UTILITY CLASSES (Optional)
+   ================================ */
+
+/* Use these for consistent spacing if needed */
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+
+/* Text utilities */
+.text-soft { color: var(--text-soft); }
+.text-dark { color: var(--text-dark); }
+.text-center { text-align: center; }
+
+/* Display utilities */
+.flex { display: flex; }
+.flex-column { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
